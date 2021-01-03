@@ -1,15 +1,12 @@
-try:
-    from cStringIO import StringIO  # Python 2
-except ImportError:
-    from io import StringIO
-from python_terraform import *
-from contextlib import contextmanager
-import pytest
-import os
-import logging
+import fnmatch
 import re
 import shutil
-import fnmatch
+from contextlib import contextmanager
+from io import StringIO
+
+import pytest
+
+from python_terraform import *
 
 logging.basicConfig(level=logging.DEBUG)
 root_logger = logging.getLogger()
@@ -156,8 +153,8 @@ def workspace_setup_teardown():
 
 class TestTerraform(object):
     def teardown_method(self, method):
-        """ teardown any state that was previously setup with a setup_method
-        call.
+        """
+        teardown any state that was previously setup with a setup_method call.
         """
         exclude = ["test_tfstate_file", "test_tfstate_file2", "test_tfstate_file3"]
 
@@ -328,7 +325,13 @@ class TestTerraform(object):
         out = tf.output("test_output")
         assert "test2" in out
 
-    @pytest.mark.parametrize(("param"), [({}), ({"module": "test2"}),])
+    @pytest.mark.parametrize(
+        ("param"),
+        [
+            ({}),
+            ({"module": "test2"}),
+        ],
+    )
     def test_output(self, param, string_logger):
         tf = Terraform(working_dir=current_path, variables={"test_var": "test"})
         tf.init("var_to_output")
@@ -343,7 +346,13 @@ class TestTerraform(object):
         else:
             assert result == "test"
 
-    @pytest.mark.parametrize(("param"), [({}), ({"module": "test2"}),])
+    @pytest.mark.parametrize(
+        ("param"),
+        [
+            ({}),
+            ({"module": "test2"}),
+        ],
+    )
     def test_output_full_value(self, param, string_logger):
         tf = Terraform(working_dir=current_path, variables={"test_var": "test"})
         tf.init("var_to_output")
@@ -358,7 +367,13 @@ class TestTerraform(object):
         else:
             assert result["value"] == "test"
 
-    @pytest.mark.parametrize(("param"), [({}), ({"module": "test2"}),])
+    @pytest.mark.parametrize(
+        ("param"),
+        [
+            ({}),
+            ({"module": "test2"}),
+        ],
+    )
     def test_output_all(self, param, string_logger):
         tf = Terraform(working_dir=current_path, variables={"test_var": "test"})
         tf.init("var_to_output")
@@ -485,7 +500,9 @@ class TestTerraform(object):
         with workspace_setup_teardown(workspace_name, delete=False) as tf:
             tf.set_workspace("default")
             ret, out, err = tf.delete_workspace(
-                workspace_name, current_path, force=IsFlagged,
+                workspace_name,
+                current_path,
+                force=IsFlagged,
             )
 
         assert ret == 0

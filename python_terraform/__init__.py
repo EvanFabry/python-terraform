@@ -1,12 +1,11 @@
-import subprocess
-import os
-import sys
 import json
 import logging
+import os
+import subprocess
+import sys
 import tempfile
 
 from python_terraform.tfstate import Tfstate
-
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
@@ -172,7 +171,7 @@ class Terraform(object):
         :param dir_or_plan: relative path to the folder want to init
         :param backend_config: a dictionary of backend config options. eg.
                 t = Terraform()
-                t.init(backend_config={'access_key': 'myaccesskey', 
+                t.init(backend_config={'access_key': 'myaccesskey',
                 'secret_key': 'mysecretkey', 'bucket': 'mybucketname'})
         :param reconfigure: whether or not to force reconfiguration of backend
         :param backend: whether or not to use backend settings for init
@@ -356,7 +355,7 @@ class Terraform(object):
         :param args:   Positional arguments. There is one optional positional
                        argument NAME; if supplied, the returned output text
                        will be the json for a single named output value.
-        :param kwargs: Named options, passed to the command. In addition, 
+        :param kwargs: Named options, passed to the command. In addition,
                           'full_value': If True, and NAME is provided, then
                                         the return value will be a dict with
                                         "value', 'type', and 'sensitive'

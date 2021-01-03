@@ -2,8 +2,8 @@
 # above is for compatibility of python2.7.11
 
 import json
-import os
 import logging
+import os
 
 log = logging.getLogger(__name__)
 
