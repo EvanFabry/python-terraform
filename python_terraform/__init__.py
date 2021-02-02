@@ -154,7 +154,6 @@ class Terraform(object):
         args = self._generate_default_args(dir_or_plan)
         return self.cmd("plan", *args, **options)
 
-
     def refresh(self, dir_or_plan=None, **kwargs):
         """
         refer to https://www.terraform.io/docs/commands/refresh.html
@@ -167,7 +166,6 @@ class Terraform(object):
         options["capture_output"] = False
         args = self._generate_default_args(dir_or_plan)
         return self.cmd("refresh", *args, **options)
-
 
     def state_list(self, dir_or_plan=None, **kwargs):
         """
@@ -317,7 +315,9 @@ class Terraform(object):
         :return: ret_code, out, err
         """
         capture_output = kwargs.pop("capture_output", True)
-        assert not verbose or not capture_output, "can't use both verbose and capture_output"
+        assert (
+            not verbose or not capture_output
+        ), "can't use both verbose and capture_output"
         raise_on_error = kwargs.pop("raise_on_error", False)
         synchronous = kwargs.pop("synchronous", True)
         if capture_output is True:
