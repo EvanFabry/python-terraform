@@ -93,7 +93,7 @@ class Terraform(object):
         input=False,
         skip_plan=False,
         no_color=IsFlagged,
-        **kwargs
+        **kwargs,
     ):
         """
         refer to https://terraform.io/docs/commands/apply.html
@@ -188,7 +188,7 @@ class Terraform(object):
         backend_config=None,
         reconfigure=IsFlagged,
         backend=True,
-        **kwargs
+        **kwargs,
     ):
         """
         refer to https://www.terraform.io/docs/commands/init.html
